@@ -10,20 +10,34 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
+    var navBarHeight: CGFloat?
+    var statusBarHeight:  CGFloat?
+    var topMargin: CGFloat?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let collectionVC = ViewController(titleName: "Top")
+        self.statusBarHeight = UIApplication.shared.statusBarFrame.height
+        if self.statusBarHeight == nil{
+            self.statusBarHeight = CGFloat(0.0)
+        }
+        self.navBarHeight = self.navigationController?.navigationBar.frame.size.height
+        if self.navBarHeight == nil{
+            self.navBarHeight = CGFloat(0.0)
+        }
+        self.topMargin = self.statusBarHeight! + self.navBarHeight!
+        
+        let collectionVC = ViewController()
         collectionVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         let nv = UINavigationController(rootViewController: collectionVC)
         
-        let listVC = RamenListViewController(titleName: "Myリスト")
+        let listVC = RamenListViewController()
         listVC.tabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 2)
         listVC.tabBarItem.title = "list"
         let nv2 = UINavigationController(rootViewController: listVC)
         
-        let MapVC = MapViewController(titleName: "Map")
+        let MapVC = MapViewController()
         MapVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 3)
         MapVC.tabBarItem.title = "map"
         let nv3 = UINavigationController(rootViewController: MapVC)

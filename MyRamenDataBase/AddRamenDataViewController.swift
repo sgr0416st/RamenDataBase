@@ -6,19 +6,19 @@ class AddRamenDataViewController: UIViewController, UITextFieldDelegate , UIImag
     var shopName: String? = nil
     let titleName: String? = nil
     var image: UIImage? = nil
-    var noImage: UIImage? = nil
+    var commentText: String = "no input comment"
     
+    var nextBtn: UIBarButtonItem!
+    var backBtn: UIBarButtonItem!
     var contentView: UIView! = nil
     var NoodleNameTF: UITextField! = nil
     var imageBtn: UIButton! = nil
     var commentBtn: UIButton! = nil
     var OKBtn: UIButton! = nil
     
-    //var addRamenDataView: AddRamenDataView!
     var pickerView: UIImagePickerController?
+    let singleton = Singleton.sharedInstance
     
-    var nextBtn: UIBarButtonItem!
-    var backBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +48,15 @@ class AddRamenDataViewController: UIViewController, UITextFieldDelegate , UIImag
         contentView.addSubview(NoodleNameTF)
         NoodleNameTF.placeholder = "商品名を入力してください"
         self.NoodleNameTF.textAlignment = .center
-        
+        self.NoodleNameTF.text = ""
         NoodleNameTF.snp.makeConstraints { (make) in
             make.left.right.equalTo(contentView).inset(20) // left/right padding 20pt
             make.top.equalTo(contentView).offset(20) // attached to the top of the contentview with padding 20pt
         }
         
+        self.image = UIImage(named: "NoImage.jpg")
         self.imageBtn = UIButton()
-        self.noImage = UIImage(named: "NoImage.jpg")
-        self.imageBtn.setImage(self.noImage, for: .normal)
+        self.imageBtn.setImage(self.image, for: .normal)
         self.imageBtn.imageView?.contentMode = .scaleAspectFit
         self.imageBtn.contentHorizontalAlignment = .fill
         self.imageBtn.contentVerticalAlignment = .fill
@@ -125,8 +125,13 @@ class AddRamenDataViewController: UIViewController, UITextFieldDelegate , UIImag
         //ok -> add data and move list view
         let okButton = UIAlertAction(title: "OK", style: .default, handler:{(action: UIAlertAction) -> Void in
             //add data
+            let noodlesData: NoodlesData = NoodlesData(name: self.NoodleNameTF.text!, image: self.image, type: "empty", comment: self.commentText)
+            let shopData:ShopData = ShopData(shopName: self.shopName!, noodles: noodlesData)
+            self.singleton.shopDataList.append(shopData)
             
-            
+            //let archivedObject:Data = NSKeyedArchiver.archivedData(withRootObject: self.shopDataList)
+            //UserDefaults.standard.set(archivedObject, forKey: "MyRamenDataBase")
+                        
             //move view
             self.navigationController?.popToRootViewController(animated: false)
         })

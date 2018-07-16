@@ -13,6 +13,8 @@
 		BB2E0FDF20F8FEC100663CAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB2E0FDE20F8FEC100663CAF /* Assets.xcassets */; };
 		BB2E0FE220F8FEC100663CAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB2E0FE020F8FEC100663CAF /* LaunchScreen.storyboard */; };
 		BB2E0FEC20F91BBE00663CAF /* RamenListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2E0FEB20F91BBE00663CAF /* RamenListViewController.swift */; };
+		BB3420A320FB99BD00293F09 /* StandardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3420A220FB99BD00293F09 /* StandardViewController.swift */; };
+		BB3420AD20FC9DA600293F09 /* PrototypeViewSizing.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3420AC20FC9DA600293F09 /* PrototypeViewSizing.swift.swift */; };
 		BB3D778B20F9EE99001689C2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D778A20F9EE99001689C2 /* MainTabBarController.swift */; };
 		BB3D778F20F9F92A001689C2 /* SelectShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D778E20F9F92A001689C2 /* SelectShopViewController.swift */; };
 		BB3D779120F9FD15001689C2 /* AddRamenDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D779020F9FD15001689C2 /* AddRamenDataViewController.swift */; };
@@ -32,6 +34,8 @@
 		BB2E0FE120F8FEC100663CAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB2E0FE320F8FEC100663CAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB2E0FEB20F91BBE00663CAF /* RamenListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamenListViewController.swift; sourceTree = "<group>"; };
+		BB3420A220FB99BD00293F09 /* StandardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardViewController.swift; path = /Users/suguru/programing/swift/MyRamenDataBase/MyRamenDataBase/StandardViewController.swift; sourceTree = "<absolute>"; };
+		BB3420AC20FC9DA600293F09 /* PrototypeViewSizing.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypeViewSizing.swift.swift; sourceTree = "<group>"; };
 		BB3D778A20F9EE99001689C2 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BB3D778E20F9F92A001689C2 /* SelectShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectShopViewController.swift; sourceTree = "<group>"; };
 		BB3D779020F9FD15001689C2 /* AddRamenDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRamenDataViewController.swift; sourceTree = "<group>"; };
@@ -92,12 +96,14 @@
 			children = (
 				BB2E0FD720F8FEC000663CAF /* AppDelegate.swift */,
 				BB3D778A20F9EE99001689C2 /* MainTabBarController.swift */,
+				BB3420A220FB99BD00293F09 /* StandardViewController.swift */,
 				BB2E0FD920F8FEC000663CAF /* ViewController.swift */,
 				BB2E0FEB20F91BBE00663CAF /* RamenListViewController.swift */,
 				BB3D779220FA0A04001689C2 /* MapViewController.swift */,
 				BB3D778E20F9F92A001689C2 /* SelectShopViewController.swift */,
 				BB3D779020F9FD15001689C2 /* AddRamenDataViewController.swift */,
 				BB3D779420FA54E8001689C2 /* ShopData.swift */,
+				BB3420AC20FC9DA600293F09 /* PrototypeViewSizing.swift.swift */,
 				BB2E0FD520F8FEC000663CAF /* Products */,
 				BB2E0FDE20F8FEC100663CAF /* Assets.xcassets */,
 				BB3D779820FA72C1001689C2 /* NoImage.jpg */,
@@ -221,10 +227,12 @@
 			files = (
 				BB2E0FDA20F8FEC000663CAF /* ViewController.swift in Sources */,
 				BB3D778F20F9F92A001689C2 /* SelectShopViewController.swift in Sources */,
+				BB3420AD20FC9DA600293F09 /* PrototypeViewSizing.swift.swift in Sources */,
 				BB3D779120F9FD15001689C2 /* AddRamenDataViewController.swift in Sources */,
 				BB2E0FEC20F91BBE00663CAF /* RamenListViewController.swift in Sources */,
 				BB3D778B20F9EE99001689C2 /* MainTabBarController.swift in Sources */,
 				BB3D779520FA54E8001689C2 /* ShopData.swift in Sources */,
+				BB3420A320FB99BD00293F09 /* StandardViewController.swift in Sources */,
 				BB2E0FD820F8FEC000663CAF /* AppDelegate.swift in Sources */,
 				BB3D779320FA0A04001689C2 /* MapViewController.swift in Sources */,
 			);
