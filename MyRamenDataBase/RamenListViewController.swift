@@ -8,10 +8,6 @@
 
 import UIKit
 
-struct Pages {
-    var viewControllers:[UIViewController] = []
-}
-
 class RamenListViewController: StandardViewController,  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     let nLines = 1

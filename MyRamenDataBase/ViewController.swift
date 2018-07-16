@@ -9,24 +9,22 @@
 import UIKit
 import SnapKit
 
-class ViewController: StandardViewController ,  UICollectionViewDelegate, UICollectionViewDataSource{
+class ViewController: StandardViewController ,  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    
-    
-    var myCollectionView : UICollectionView!
+    let nColumns = 2
+    let nLines = 3
     let singleton :Singleton =  Singleton.sharedInstance
     
+    var myCollectionView : UICollectionView!
+    var computedCellSize: CGSize?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // CollectionViewのレイアウトを生成.
         let layout = UICollectionViewFlowLayout()
-        let cellWidth = floor(self.view.bounds.width / 2)
-        layout.itemSize = CGSize(width: cellWidth, height: cellWidth*1.5)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
-        //layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16)
         layout.headerReferenceSize = CGSize(width:100,height:30)
         
         // CollectionViewを生成.
@@ -44,10 +42,6 @@ class ViewController: StandardViewController ,  UICollectionViewDelegate, UIColl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myCollectionView.reloadData()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        self.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     //Cellが選択された際に呼び出される
@@ -71,7 +65,23 @@ class ViewController: StandardViewController ,  UICollectionViewDelegate, UIColl
         return cell
     }
     
-
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 一度計算したらキャッシュし、負荷を軽減
+        // TODO: landscape表示に対応している場合は再計算を行うこと
+        if let cellSize = self.computedCellSize {
+            return cellSize
+        } else {
+            // PropotionalSizingCell.nibから原型セルを生成し、2列表示に適切なサイズを求める
+            let prototypeCell = RamenCollectionViewCell()
+            let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout
+            //1ko
+            let cellSize = prototypeCell.propotionalScaledSize(for: flowLayout!, numberOfColumns: self.nColumns, numberOfLines: self.nLines)
+            self.computedCellSize = cellSize
+            
+            return cellSize
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,7 +89,7 @@ class ViewController: StandardViewController ,  UICollectionViewDelegate, UIColl
 
 }
 
-class CustomUICollectionViewCell : UICollectionViewCell{
+class CustomUICollectionViewCell : UICollectionViewCell,  PrototypeViewSizing{
     
     var textLabel : UILabel!
     var imageBtn: UIButton!
@@ -102,18 +112,18 @@ class CustomUICollectionViewCell : UICollectionViewCell{
         
         self.contentView.addSubview(self.imageBtn!)
         self.imageBtn.snp.makeConstraints{ make in
-            make.width.equalToSuperview().multipliedBy(0.75)
-            make.height.equalToSuperview().multipliedBy(0.75)
+            make.height.equalTo(self.imageBtn.snp.width)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(10)
             
         }
         self.contentView.addSubview(self.textLabel!)
         self.textLabel.snp.makeConstraints{ make in
-            make.width.equalToSuperview()
+            make.width.equalTo(self.imageBtn.snp.width)
+            make.height.equalTo(20)
             make.top.equalTo(self.imageBtn.snp.bottom).offset(10)
+            make.bottom.equalToSuperview().offset(-10)
         }
-        
     }
     
     override func prepareForReuse() {
