@@ -11,6 +11,8 @@ import SnapKit
 
 class ViewController: StandardViewController ,  UICollectionViewDelegate, UICollectionViewDataSource{
     
+    
+    
     var myCollectionView : UICollectionView!
     let singleton :Singleton =  Singleton.sharedInstance
     
@@ -19,23 +21,12 @@ class ViewController: StandardViewController ,  UICollectionViewDelegate, UIColl
         
         // CollectionViewのレイアウトを生成.
         let layout = UICollectionViewFlowLayout()
-        
-        // Cell一つ一つの大きさ.
-        //layout.itemSize = CGSize(width:50, height:50)
-        //layout.itemSize = CGSize(width:self.view.frame.width, height: )
-            let cellWidth = floor(self.view.bounds.width / 2)  // *7列*
-            
-            layout.itemSize = CGSize(width: cellWidth, height: cellWidth*1.5)
-            // ここからはオプション マージンとかをなくしている
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            layout.minimumInteritemSpacing = 0 // アイテム間?
-            layout.minimumLineSpacing = 0 // 行間
-        
-        
-        // Cellのマージン.
-        //layout.sectionInset = UIEdgeInsetsMake(16, 16, 32, 16)
-        
-        // セクション毎のヘッダーサイズ.
+        let cellWidth = floor(self.view.bounds.width / 2)
+        layout.itemSize = CGSize(width: cellWidth, height: cellWidth*1.5)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        //layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16)
         layout.headerReferenceSize = CGSize(width:100,height:30)
         
         // CollectionViewを生成.
@@ -43,7 +34,6 @@ class ViewController: StandardViewController ,  UICollectionViewDelegate, UIColl
         
         // Cellに使われるクラスを登録.
         myCollectionView.register(CustomUICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
-        
         myCollectionView.delegate = self
         myCollectionView.dataSource = self
         
@@ -56,29 +46,21 @@ class ViewController: StandardViewController ,  UICollectionViewDelegate, UIColl
         myCollectionView.reloadData()
     }
     
-    //* 下記はViewController で指定する (マージン対策）
     override func viewWillLayoutSubviews() {
         self.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    /*
-     Cellが選択された際に呼び出される
-     */
+    //Cellが選択された際に呼び出される
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
-        
     }
     
-    /*
-     Cellの総数を返す
-     */
+    //Cellが選択された際に呼び出される
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.singleton.shopDataList.count
     }
     
-    /*
-     Cellにデータを設定する
-     */
+    //Cellにデータを設定する
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : CustomUICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath) as! CustomUICollectionViewCell

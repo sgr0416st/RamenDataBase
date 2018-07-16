@@ -14,13 +14,11 @@ struct Pages {
 
 class RamenListViewController: StandardViewController,  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var ramenCollectionView : UICollectionView!
+    let nLines = 1
+    let nColumns = 1
     let singleton :Singleton =  Singleton.sharedInstance
-    var pages:Pages = Pages(){
-        didSet {
-            ramenCollectionView.reloadData()
-        }
-    }
+    
+    var ramenCollectionView : UICollectionView!
     var computedCellSize: CGSize?
 
 
@@ -46,7 +44,6 @@ class RamenListViewController: StandardViewController,  UICollectionViewDelegate
         ramenCollectionView.delegate = self
         ramenCollectionView.dataSource = self
         
-        
     }
     
     
@@ -54,30 +51,18 @@ class RamenListViewController: StandardViewController,  UICollectionViewDelegate
         super.viewWillAppear(animated)
         ramenCollectionView.reloadData()
     }
-    
-    //* 下記はViewController で指定する (マージン対策）
-    override func viewWillLayoutSubviews() {
-        self.view.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    /*
-     Cellが選択された際に呼び出される
-     */
+
+    //Cellが選択された際に呼び出される
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Num: \(indexPath.row)")
-        
     }
-    
-    /*
-     Cellの総数を返す
-     */
+
+    //Cellの総数を返す
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.singleton.shopDataList.count
     }
     
-    /*
-     Cellにデータを設定する
-     */
+    //Cellにデータを設定する
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell : RamenCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "RamenPageCell", for: indexPath) as! RamenCollectionViewCell
@@ -99,21 +84,18 @@ class RamenListViewController: StandardViewController,  UICollectionViewDelegate
             // PropotionalSizingCell.nibから原型セルを生成し、2列表示に適切なサイズを求める
                 let prototypeCell = RamenCollectionViewCell()
                 let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout
-            
             //1ko
-            let cellSize = prototypeCell.propotionalScaledSize(for: flowLayout!, numberOfColumns: 1, numberOfLines: 1)
+            let cellSize = prototypeCell.propotionalScaledSize(for: flowLayout!, numberOfColumns: self.nColumns, numberOfLines: self.nLines)
             self.computedCellSize = cellSize
             
             return cellSize
         }
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 class RamenCollectionViewCell : UICollectionViewCell, PrototypeViewSizing{
@@ -131,8 +113,7 @@ class RamenCollectionViewCell : UICollectionViewCell, PrototypeViewSizing{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
+
         self.scrollView = UIScrollView()
         self.inView = UIView()
         self.shopNameLb = UILabel()
@@ -188,10 +169,10 @@ class RamenCollectionViewCell : UICollectionViewCell, PrototypeViewSizing{
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.shopNameLb?.text = "no shop name"
+        self.shopNameLb?.text = ""
         self.imageView?.image = nil
-        self.noodlesNameLb?.text = "no noodles name"
-        self.commentLb?.text = "no comment"
+        self.noodlesNameLb?.text = ""
+        self.commentLb?.text = ""
 
     }
 
